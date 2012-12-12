@@ -3,7 +3,7 @@
  ** C++ class implementation of the Hungarian algorithm by David Schwarz, 2012
  **
  **
- ** C++ Hungarian Class derived from libhungarian by Cyrill Stachniss, 2004
+ ** O(n^3) implementation derived from libhungarian by Cyrill Stachniss, 2004
  **
  **
  ** Solving the Minimum Assignment Problem using the 
@@ -26,6 +26,8 @@
 #ifndef HUNGARIAN_H
 #define HUNGARIAN_H
 
+using std::vector;
+
 typedef enum {
 	HUNGARIAN_MODE_MINIMIZE_COST,
 	HUNGARIAN_MODE_MAXIMIZE_UTIL,
@@ -46,15 +48,21 @@ public:
 	 *  It returns the size of the quadratic(!) assignment matrix. **/
 
 	Hungarian();
-	Hungarian(std::vector< std::vector<int> >, int, int, MODE);
+	Hungarian(const vector<vector<int>>&, int, int, MODE);
 
-	int init( std::vector< std::vector<int> > cost_matrix, 
+	int init(const vector<vector<int>>& input_matrix, 
 			   int rows, 
 			   int cols, 
 			   MODE mode);
 
 	/** This method computes the optimal assignment. **/
 	bool solve();
+
+	/** Accessor for the cost **/
+	int cost() const;
+
+	/** Reference accessor for assignment **/
+	const vector<vector<int>>& assignment() const;
 
 	/** Print the computed optimal assignment. **/
 	void print_assignment();
@@ -66,16 +74,16 @@ public:
 	void print_status();
 
 protected:
-	bool check_solution(std::vector<int> row_dec, std::vector<int> col_inc, std::vector<int> col_mate);
-	bool assign_solution(std::vector<int> row_dec, std::vector<int> col_inc, std::vector<int> col_mate);
+	bool check_solution(const vector<int>& row_dec, const vector<int>& col_inc, const vector<int>& col_vertex);
+	bool assign_solution(const vector<int>& row_dec, const vector<int>& col_inc, const vector<int>& col_vertex);
 
 private:
 
-	int m_totalcost;
+	int m_cost;
 	int m_rows;
 	int m_cols;
-	std::vector< std::vector<int>> m_cost;
-	std::vector< std::vector<int>> m_assignment;   
+	vector<vector<int>> m_costmatrix;
+	vector<vector<int>> m_assignment;   
 
 };
 
