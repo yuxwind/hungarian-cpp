@@ -3,7 +3,7 @@
  ** C++ class implementation of the Hungarian algorithm by David Schwarz, 2012
  **
  **
- ** C++ Hungarian Class derived from libhungarian by Cyrill Stachniss, 2004
+ ** O(n^3) implementation derived from libhungarian by Cyrill Stachniss, 2004
  **
  **
  ** Solving the Minimum Assignment Problem using the 
@@ -20,8 +20,6 @@
  ********************************************************************
  ********************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "hungarian.h"
 
 std::vector< std::vector<int> > array_to_matrix(int* m, int rows, int cols) {
