@@ -39,14 +39,11 @@ std::vector< std::vector<int> > array_to_matrix(int* m, int rows, int cols) {
 int main() {
 
   /* an example cost matrix */
-  int r[4*3] =  {   100, 100, 1, 
-					100, 2, 21512, 
-					1, 4, 9852, 
-					6, 30252, 400 };
-  std::vector< std::vector<int> > m = array_to_matrix(r,4,3);
+  int r[3*3] =  {20,90,10,60,30,40,90,90, 120};
+  std::vector< std::vector<int> > m = array_to_matrix(r,3,3);
 
   /* initialize the gungarian_problem using the cost matrix*/
-  Hungarian hungarian(m , 4,3, HUNGARIAN_MODE_MINIMIZE_COST) ;
+  Hungarian hungarian(m , 3,3, HUNGARIAN_MODE_MINIMIZE_COST) ;
 
   //fprintf(stderr, "assignement matrix has a now a size %d rows and %d columns.\n\n",  hungarian.ro,matrix_size);
 

@@ -30,6 +30,7 @@ Hungarian::Hungarian()
 	//much ado about nothing
 	m_rows = 1;
 	m_cols = 1;
+	m_cost = 0;
 
 	m_costmatrix.resize(m_rows, vector<int>(m_cols,0));
 	m_assignment.resize(m_rows, vector<int>(m_cols,0));
@@ -428,10 +429,10 @@ bool Hungarian::solve()
 								}
 								slack[l]=0;
 								parent_row[l]=k;
-								if (verbose)
+								if (verbose){
 									fprintf(stderr, "node %d: row %d==col %d--row %d\n",
-									t,row_vertex[l],l,k);
-									unchosen_row[t++]=row_vertex[l];
+										t,row_vertex[l],l,k);}
+								unchosen_row[t++]=row_vertex[l];
 							}
 							else
 							{
@@ -488,10 +489,9 @@ bool Hungarian::solve()
 					{
 						parent_row[l]=k;
 						if (verbose)
-						{
-							fprintf(stderr, "node %d: row %d==col %d--row %d\n",t,row_vertex[l],l,k);
-							unchosen_row[t++]=row_vertex[l];
-						}
+							{ fprintf(stderr, "node %d: row %d==col %d--row %d\n",t,row_vertex[l],l,k);}
+						unchosen_row[t++]=row_vertex[l];
+						
 					}
 		// End look at a new zero 22
 				}
@@ -558,7 +558,7 @@ bool Hungarian::solve()
 				if (col_vertex[k]<0)
 				{
 					if (verbose)
-						fprintf(stderr, "node %d: unmatched row %d\n",t,k);
+					{ fprintf(stderr, "node %d: unmatched row %d\n",t,k);}
 					unchosen_row[t++]=k;
 				}
 			}
